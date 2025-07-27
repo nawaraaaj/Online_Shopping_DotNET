@@ -48,7 +48,7 @@ namespace OnlineShopping_BIT_2025.Controllers
         // GET: Product/Create
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Id");
+            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name");
             return View();
         }
 
@@ -71,7 +71,7 @@ namespace OnlineShopping_BIT_2025.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Id", product.CategoryId);
+            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name", product.CategoryId);
             return View(product);
         }
 
