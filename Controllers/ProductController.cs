@@ -26,6 +26,12 @@ namespace OnlineShopping_BIT_2025.Controllers
             return View(await onlineShopping_BIT_2025Context.ToListAsync());
         }
 
+        public async Task<IActionResult> ProductDashboard()
+        {
+            var onlineShopping_BIT_2025Context = _context.Product.Include(p => p.Category);
+            return View(await onlineShopping_BIT_2025Context.ToListAsync());
+        }
+
         // GET: Product/Details/5
         public async Task<IActionResult> Details(int? id)
         {
