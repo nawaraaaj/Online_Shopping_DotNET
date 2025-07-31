@@ -26,10 +26,18 @@ namespace OnlineShopping_BIT_2025.Controllers
             return View(await onlineShopping_BIT_2025Context.ToListAsync());
         }
 
-        public async Task<IActionResult> ProductDashboard()
+        public async Task<IActionResult> ProductDashboard(string? title)
         {
-            var onlineShopping_BIT_2025Context = _context.Product.Include(p => p.Category);
-            return View(await onlineShopping_BIT_2025Context.ToListAsync());
+            if (string.IsNullOrEmpty(title))
+            {
+                var onlineShopping_BIT_2025Context = _context.Product.Include(p => p.Category);
+                return View(await onlineShopping_BIT_2025Context.ToListAsync());
+            }
+            else
+            {
+                var searchProducts = _context.Product.Include(p=>p.Category).Where(p=>p.Title.Contains(title));
+                return View(await searchProducts.ToListAsync());
+            }
         }
 
         // GET: Product/Details/5
