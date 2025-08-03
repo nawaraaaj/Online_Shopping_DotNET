@@ -16,5 +16,6 @@ namespace OnlineShopping_BIT_2025.Data
 
         public DbSet<OnlineShopping_BIT_2025.Models.Category> Category { get; set; } = default!;
         public DbSet<OnlineShopping_BIT_2025.Models.Product> Product { get; set; } = default!;
+        public DbSet<OnlineShopping_BIT_2025.Models.User> User { get; set; } = default!;
     }
 }

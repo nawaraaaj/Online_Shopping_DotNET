@@ -1,4 +1,4 @@
-﻿@model IEnumerable<OnlineShopping_BIT_2025.Models.Product>
+﻿@model IEnumerable<OnlineShopping_BIT_2025.Models.User>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,19 +13,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                @Html.DisplayNameFor(model => model.UserName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+                @Html.DisplayNameFor(model => model.Password)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                @Html.DisplayNameFor(model => model.Mobile)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ProductPhoto)
+                @Html.DisplayNameFor(model => model.Address)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Category)
+                @Html.DisplayNameFor(model => model.UserType)
             </th>
             <th></th>
         </tr>
@@ -34,19 +34,19 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Title)
+                @Html.DisplayFor(modelItem => item.UserName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Price)
+                @Html.DisplayFor(modelItem => item.Password)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
+                @Html.DisplayFor(modelItem => item.Mobile)
             </td>
             <td>
-                    <img src="~/@item.ProductPhoto" style="width: 100px; height: 100px; border: 2px solid #ccc;" />
+                @Html.DisplayFor(modelItem => item.Address)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Category.Name)
+                @Html.DisplayFor(modelItem => item.UserType)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
