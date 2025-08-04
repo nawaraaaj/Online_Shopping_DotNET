@@ -32,13 +32,13 @@
             @Html.DisplayNameFor(model => model.ProductPhoto)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProductPhoto)
+            <img src="@Url.Content($"~/{Model.ProductPhoto}")" alt="Product Image" style="width: 100px; height:100px; border: 2px solid #ccc;" />
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Category)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Category.Id)
+            @Html.DisplayFor(model => model.Category.Name)
         </dd>
     </dl>
 </div>

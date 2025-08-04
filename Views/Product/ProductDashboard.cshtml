@@ -7,16 +7,16 @@
 <h1>Dashboard</h1>
 
 <form asp-action="ProductDashboard">
-    Title:<input type="text" name="title"/>
+    Title: <input type="text" name="title"/>
     <input type="submit" value="Search" />
 </form>
 
-<table class="table">
+<table class="product-dashboard-table">
     <tbody>
         <tr>
         @foreach (var item in Model)
         {
-            <td style="border:1px solid red"> 
+            <td style="border:1px solid black;"> 
                 <img src="~/@item.ProductPhoto"  style="width: 100px; height: 100px; border: 2px solid #ccc;"  /><br />
                    @Html.DisplayFor(modelItem => item.Title)<br />
                    Price: Rs. @Html.DisplayFor(modelItem => item.Price) <br />

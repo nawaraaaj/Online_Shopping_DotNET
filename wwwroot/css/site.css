@@ -24,3 +24,50 @@ body {
 .navbar-nav{
     background-color: navajowhite;
 }
+
+/* Apply only to dashboard */
+.product-dashboard-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 20px;
+    margin-top: 20px;
+}
+
+    .product-dashboard-table td {
+        width: 200px;
+        vertical-align: top;
+        background-color: #f9f9f9;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        transition: transform 0.2s ease;
+    }
+
+        .product-dashboard-table td:hover {
+            transform: scale(1.02);
+        }
+
+    .product-dashboard-table img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border: 2px solid #ccc;
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+
+    .product-dashboard-table a {
+        display: inline-block;
+        margin-top: 8px;
+        padding: 5px 10px;
+        background-color: #007bff;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+
+        .product-dashboard-table a:hover {
+            background-color: #0056b3;
+        }

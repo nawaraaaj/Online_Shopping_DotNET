@@ -91,12 +91,41 @@ namespace OnlineShopping_BIT_2025.Controllers
                     user.Password = userViewModel.Password;
                     user.Mobile = userViewModel.Mobile;
                     user.Address = userViewModel.Address;
+                    user.UserType = "Normal";
                     _context.Add(user);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));// redirect to login 
                 }
             }
             return View(userViewModel);
+        }
+
+        // GET: User/Login
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        // POST: User/Login
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login([Bind("UserName,Password")] LoginViewModel LoginViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var userExist = (from u in _context.User where u.UserName == LoginViewModel.UserName && u.Password ==LoginViewModel.Password select u).ToList();
+                if (userExist.Count() > 0)
+                {
+                    return RedirectToAction("ProductDashboard","Product");
+                }
+                else
+                {
+                    ViewData["ErrorMessage"] = "Username/Password is invalid.";
+                }
+            }
+            return View(LoginViewModel);
         }
 
         // GET: User/Edit/5
