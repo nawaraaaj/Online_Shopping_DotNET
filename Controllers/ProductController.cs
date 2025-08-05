@@ -122,14 +122,46 @@ namespace OnlineShopping_BIT_2025.Controllers
             {
                 try
                 {
-                    string path = Environment.CurrentDirectory + "/wwwroot/ProductImages/";
-                    string file = Photo.FileName;
-                    FileStream fs = new FileStream(path + file, FileMode.Create);
-                    await Photo.CopyToAsync(fs);
-                    product.ProductPhoto = "ProductImages/" + file;
+                    if (Photo != null && Photo.Length > 0)
+                    {
+                        // Validate file extension
+                        var ext = Path.GetExtension(Photo.FileName).ToLower();
+                        var allowedExts = new[] { ".jpg", ".jpeg", ".png", ".gif" };
+
+                        if (!allowedExts.Contains(ext))
+                        {
+                            ModelState.AddModelError("Photo", "Only image files (.jpg, .png, .gif) are allowed.");
+                            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name", product.CategoryId);
+                            return View(product);
+                        }
+
+                        // Create path and unique filename
+                        string uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "ProductImages");
+                        string uniqueFileName = Guid.NewGuid().ToString() + ext;
+                        string fullPath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                        // Save the file
+                        using (var stream = new FileStream(fullPath, FileMode.Create))
+                        {
+                            await Photo.CopyToAsync(stream);
+                        }
+
+                        // Set path to save in DB
+                        product.ProductPhoto = "ProductImages/" + uniqueFileName;
+                    }
+                    else
+                    {
+                        // Preserve existing image if not changed
+                        var existingProduct = await _context.Product.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+                        if (existingProduct != null)
+                        {
+                            product.ProductPhoto = existingProduct.ProductPhoto;
+                        }
+                    }
 
                     _context.Update(product);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -142,11 +174,12 @@ namespace OnlineShopping_BIT_2025.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Id", product.CategoryId);
+
+            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name", product.CategoryId);
             return View(product);
         }
+
 
         // GET: Product/Delete/5
         public async Task<IActionResult> Delete(int? id)

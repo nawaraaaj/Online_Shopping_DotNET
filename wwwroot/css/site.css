@@ -33,7 +33,7 @@ body {
     margin-top: 20px;
 }
 
-    .product-dashboard-table td {
+.product-dashboard-table td {
         width: 200px;
         vertical-align: top;
         background-color: #f9f9f9;
@@ -42,7 +42,7 @@ body {
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         text-align: center;
         transition: transform 0.2s ease;
-    }
+ }
 
         .product-dashboard-table td:hover {
             transform: scale(1.02);
@@ -68,6 +68,21 @@ body {
         font-size: 14px;
     }
 
-        .product-dashboard-table a:hover {
+ .product-dashboard-table a:hover {
             background-color: #0056b3;
-        }
+  }
+.text-danger {
+    color: #e74c3c; /* Red color */
+    font-size: 0.9rem; /* Slightly smaller font */
+    margin-top: 4px;
+    display: block;
+}
+
+.validation-summary-errors {
+    border: 1px solid #e74c3c;
+    background-color: #fdecea;
+    padding: 10px;
+    color: #e74c3c;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
