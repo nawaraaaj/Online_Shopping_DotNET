@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using OnlineShopping_BIT_2025.Data;
 using OnlineShopping_BIT_2025.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace OnlineShopping_BIT_2025.Controllers
 {
@@ -118,7 +121,16 @@ namespace OnlineShopping_BIT_2025.Controllers
                 var userExist = (from u in _context.User where u.UserName == LoginViewModel.UserName && u.Password ==LoginViewModel.Password select u).ToList();
                 if (userExist.Count() > 0)
                 {
-                    return RedirectToAction("ProductDashboard","Product");
+                    List<Claim> claims = new List<Claim>();
+                    Claim claim = new Claim(ClaimTypes.Email, LoginViewModel.UserName);
+                    Claim claim1 = new Claim(ClaimTypes.Role, userExist[0].UserType);
+                    claims.Add(claim);
+                    claims.Add(claim1);
+                    ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    ClaimsPrincipal claimsPrincical = new ClaimsPrincipal(claimsIdentity);
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincical);
+
+                    return RedirectToAction("ProductDashboard", "Product");
                 }
                 else
                 {
@@ -126,6 +138,12 @@ namespace OnlineShopping_BIT_2025.Controllers
                 }
             }
             return View(LoginViewModel);
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login", "User");
         }
 
         // GET: User/Edit/5

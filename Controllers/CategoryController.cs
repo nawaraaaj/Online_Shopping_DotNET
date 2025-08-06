@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using OnlineShopping_BIT_2025.Models;
 
 namespace OnlineShopping_BIT_2025.Controllers
 {
+    [Authorize]
     public class CategoryController : Controller
     {
         private readonly OnlineShopping_BIT_2025Context _context;

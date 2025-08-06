@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using OnlineShopping_BIT_2025.Models;
 
 namespace OnlineShopping_BIT_2025.Controllers
 {
+    [Authorize]
     public class ProductController : Controller
     {
         private readonly OnlineShopping_BIT_2025Context _context;
@@ -25,7 +27,7 @@ namespace OnlineShopping_BIT_2025.Controllers
             var onlineShopping_BIT_2025Context = _context.Product.Include(p => p.Category);
             return View(await onlineShopping_BIT_2025Context.ToListAsync());
         }
-
+        [AllowAnonymous]
         public async Task<IActionResult> ProductDashboard(string? title)
         {
             if (string.IsNullOrEmpty(title))

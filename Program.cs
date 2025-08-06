@@ -1,9 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using OnlineShopping_BIT_2025.Data;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<OnlineShopping_BIT_2025Context>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("OnlineShopping_BIT_2025Context") ?? throw new InvalidOperationException("Connection string 'OnlineShopping_BIT_2025Context' not found.")));
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => options.LoginPath = new PathString("/User/Login"));
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -22,7 +28,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
