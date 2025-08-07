@@ -10,9 +10,11 @@ using OnlineShopping_BIT_2025.Data;
 using OnlineShopping_BIT_2025.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 
 namespace OnlineShopping_BIT_2025.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         private readonly OnlineShopping_BIT_2025Context _context;
@@ -47,6 +49,7 @@ namespace OnlineShopping_BIT_2025.Controllers
         }
 
         // GET: User/Create
+        [AllowAnonymous]
         public IActionResult Create()
         {
             return View();
@@ -55,6 +58,7 @@ namespace OnlineShopping_BIT_2025.Controllers
         // POST: User/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,UserName,Password,Mobile,Address,UserType")] User user)
@@ -68,6 +72,7 @@ namespace OnlineShopping_BIT_2025.Controllers
             return View(user);
         }
         // GET: User/Register
+        [AllowAnonymous]
         public IActionResult Register()
         {
             return View();
@@ -76,6 +81,7 @@ namespace OnlineShopping_BIT_2025.Controllers
         // POST: User/Register
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register([Bind("UserName,Password,ConfirmPassword,Mobile,Address")] UserViewModel userViewModel)
@@ -104,11 +110,12 @@ namespace OnlineShopping_BIT_2025.Controllers
         }
 
         // GET: User/Login
+        [AllowAnonymous]
         public IActionResult Login()
         {
             return View();
         }
-
+        [AllowAnonymous]
         // POST: User/Login
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
