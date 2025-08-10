@@ -14,7 +14,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace OnlineShopping_BIT_2025.Controllers
 {
-    [Authorize]
     public class UserController : Controller
     {
         private readonly OnlineShopping_BIT_2025Context _context;
