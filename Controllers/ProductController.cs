@@ -11,7 +11,6 @@ using OnlineShopping_BIT_2025.Models;
 
 namespace OnlineShopping_BIT_2025.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class ProductController : Controller
     {
         private readonly OnlineShopping_BIT_2025Context _context;
