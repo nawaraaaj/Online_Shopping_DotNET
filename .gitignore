@@ -18,3 +18,7 @@ packages/
 # Ignore system files
 Thumbs.db
 Desktop.ini
+
+#Ignore photos 
+ProductImages/*
+!ProductImages/.gitkeep
